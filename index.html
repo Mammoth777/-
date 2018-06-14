@@ -43,7 +43,9 @@
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
     })
     
-    
+
+
+    render()
     function render(){
       if(pause){
         return
@@ -52,7 +54,6 @@
       scene.draw()
       window.requestAnimationFrame(render)
     }
-    render()
 
   </script>
 </body>

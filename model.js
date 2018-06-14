@@ -1,3 +1,5 @@
+const PI = 3
+
 class Point {
   constructor(ctx, x, y, radius, color = '#fff') {
     radius = radius || parseInt(Math.random() * 4) + 3 // 默认半径3-7
@@ -13,15 +15,17 @@ class Point {
     const { ctx, x, y, radius, color, breathProcessNum } = this
     const tempRadius = this.breath(radius) // 计算临时半径
     ctx.beginPath()
-    ctx.arc(x, y, tempRadius, 0, Math.PI * 2)
-    ctx.closePath()
+    ctx.arc(x, y, tempRadius, 0, PI * 2)
+    // ctx.closePath()
     ctx.fillStyle = color
     ctx.fill()
   }
   breath(radius) {
-    this.breathProcessNum += Math.PI / 18
+    const range = 2.5
+    const speed = 180
+    this.breathProcessNum += PI / speed
     let sinNum = Math.sin(this.breathProcessNum)
-    sinNum = (sinNum * 2.5).toFixed(2) * 1
+    sinNum = (sinNum * range).toFixed(2) * 1
     radius += sinNum
     radius = radius.toFixed(2)*1
     // console.log({sinNum, r: radius});
@@ -55,7 +59,6 @@ class PointList extends Array {
     this.afterListChange()
     return result
   }
-
 }
 
 // 场景
