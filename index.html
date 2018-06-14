@@ -33,7 +33,7 @@
 
     document.addEventListener('click', function (e) {
       pause = false
-      render()
+      // render() **mdzz**, 竟然是这么尴尬的错误
       let { x, y } = { x: e.clientX, y: e.clientY }
       const point = new Point(ctx, x, y)
       scene.addPoint(point)
