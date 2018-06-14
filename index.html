@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo1</title>
+  <style>
+    html, body, #con{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      background-color: #e4e4e4;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="con">浏览器不支持canvas</canvas>
+  <script src="./model.js"></script>
+  <script>
+    const container = document.getElementById('con')
+    container.width = window.innerWidth
+    container.height = window.innerHeight
+    const ctx = container.getContext('2d')
+    let scene = new Scene(ctx, container.width, container.height)
+
+    let pause = false
+
+    document.addEventListener('click', function(e){
+      pause = false
+      render()
+      let {x, y} = {x: e.clientX, y: e.clientY}
+      const point = new Point(ctx, x, y)
+      scene.addPoint(point)
+    })
+
+    
+    document.addEventListener('keypress', function(){
+      console.log('keypress');
+      console.log(ctx);
+      pause = true
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+    })
+    
+    
+    function render(){
+      if(pause){
+        return
+      }
+      // console.log('tick');
+      scene.draw()
+      window.requestAnimationFrame(render)
+    }
+    render()
+
+  </script>
+</body>
+</html>
