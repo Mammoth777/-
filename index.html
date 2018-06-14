@@ -16,11 +16,52 @@
       margin: 0;
       background-color: #e4e4e4;
     }
+
+    .menu {
+      position: fixed;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      margin: 25px;
+      padding: 20px;
+      border-radius: 5px;
+      width: 250px;
+      background-color: #f2f2f2;
+    }
+    .menu div{
+      display: flex;
+      justify-content: space-between;
+    }
   </style>
 </head>
 
 <body>
   <canvas id="con">浏览器不支持canvas</canvas>
+  <div class="menu">
+    <div>
+      range: <input type="range" name="" id="pointRange" value="5" max="100">
+    </div>
+    <div>
+      1/speed: <input type="range" name="" id="pointSpeed" value="90" max="360">
+    </div>
+  </div>
+
+  <!-- menu -->
+  <script>
+    const pointRange = document.getElementById('pointRange')
+    const pointSpeed = document.getElementById('pointSpeed')
+    const rangeNum = document.getElementById('rangeNum')
+    const speedNum = document.getElementById('speedNum')
+    let forcePointRange = pointRange.value
+    let forcePointSpeed = pointSpeed.value
+    pointRange.addEventListener('change', () => {
+      forcePointRange = pointRange.value
+    })
+    pointSpeed.addEventListener('change', () => {
+      forcePointSpeed = pointSpeed.value
+    })
+  </script>
+
   <script src="./model.js"></script>
   <script>
     const container = document.getElementById('con')
@@ -31,7 +72,7 @@
 
     let pause = false
 
-    document.addEventListener('click', function (e) {
+    container.addEventListener('click', function (e) {
       pause = false
       // render() **mdzz**, 竟然是这么尴尬的错误
       let { x, y } = { x: e.clientX, y: e.clientY }
@@ -39,8 +80,7 @@
       scene.addPoint(point)
     })
 
-
-    document.addEventListener('keypress', function () {
+    container.addEventListener('keypress', function () {
       console.log('keypress');
       console.log(ctx);
       // pause = true
@@ -63,6 +103,8 @@
     }
 
   </script>
+
+
 </body>
 
 </html>

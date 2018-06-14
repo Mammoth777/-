@@ -1,4 +1,8 @@
 const PI = 3
+function calcDistance(point1, point2){
+  let {p1, p2} = {point1, point2}
+  
+}
 
 class Point {
   constructor(ctx, x, y, radius, color = '#fff') {
@@ -6,9 +10,7 @@ class Point {
     Object.assign(this, { ctx, x, y, radius, color })
     this.exist = true // 是否渲染
     this.breathProcessNum = 0
-    /* setTimeout(() => {
-      this.destroy()
-    }, 2000); */
+    this.nearby = []
   }
   draw() {
     if (!this.exist) return
@@ -21,21 +23,17 @@ class Point {
     ctx.fill()
   }
   breath(radius) {
-    const range = 2.5
-    const speed = 180
+    const range = forcePointRange || 5 // 呼吸幅度
+    const speed = forcePointSpeed || 180 // 呼吸速度
     this.breathProcessNum += PI / speed
     let sinNum = Math.sin(this.breathProcessNum)
-    sinNum = (sinNum * range).toFixed(2) * 1
-    radius += sinNum
-    radius = radius.toFixed(2)*1
+    radius += (sinNum * range).toFixed(2) * 1
+    radius = Math.abs(radius.toFixed(2)*1)
     return radius
   }
-  destroy() {
-    console.log('destory');
-    this.x = -1
-    this.y = -1
-    this.draw()
-    this.exist = false
+  destroy(list, index) {
+    list[index] = null
+    list.splice(index, 1)
   }
 }
 
@@ -50,7 +48,14 @@ class PointList extends Array {
   }
   afterListChange() {
     console.log(this, 'after change');
-    // 在列表改变后计算连线
+    // 在列表改变后
+    this.refreshPointNearby()
+  }
+  refreshPointNearby(){
+    let lastOne = this[this.length - 1]
+    this.forEach(ele => {
+      
+    });
   }
   push(...args) {
     this.beforeListChange()
