@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo</title>
+  <style>
+    html,
+    body {
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="con"></canvas>
+  <script>
+    const container = document.getElementById('con')
+    container.width = window.innerWidth
+    container.height = window.innerHeight
+    const ctx = container.getContext('2d')
+    const list = []
+    document.addEventListener('click', function (e) {
+      const x = e.clientX
+      const y = e.clientY
+      const point = {
+        x: e.clientX,
+        y: e.clientY,
+        r: 5,
+        tickNum: 0
+      }
+      list.push(point)
+    })
+    render()
+    function render() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+      list.forEach(ele => {
+        // let tempR = ele.r + Math.sin(ele.tickNum += .2)
+        const range = 2.5
+        const speed = 180
+        ele.tickNum += Math.PI / speed
+        let sinNum = Math.sin(ele.tickNum)
+        sinNum = (sinNum * range).toFixed(2) * 1
+        let radius = ele.r
+        radius += sinNum
+        radius = radius.toFixed(2) * 1
+        ctx.beginPath()
+        ctx.arc(ele.x, ele.y, radius, 0, 2 * Math.PI)
+        ctx.fillStyle = '#ccc'
+        ctx.fill()
+        ctx.closePath()
+      });
+      window.requestAnimationFrame(render)
+    }
+  </script>
+</body>
+
+</html>

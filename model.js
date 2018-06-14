@@ -28,7 +28,6 @@ class Point {
     sinNum = (sinNum * range).toFixed(2) * 1
     radius += sinNum
     radius = radius.toFixed(2)*1
-    // console.log({sinNum, r: radius});
     return radius
   }
   destroy() {
